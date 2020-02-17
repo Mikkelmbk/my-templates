@@ -1,0 +1,18 @@
+body{
+    margin:0
+}
+.slider-wrapper{
+    height:350px;
+    overflow:hidden
+}
+.slider-wrapper .slider-container{
+    display:flex;
+    height:100%;
+    transition:.5s all ease-in-out
+}
+.slider-wrapper .slider-container .image-container{
+    height:100%;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover
+}
