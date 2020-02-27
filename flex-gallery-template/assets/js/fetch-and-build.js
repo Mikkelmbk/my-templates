@@ -26,7 +26,6 @@ async function fetchGalleryPhotos() {
 
 async function extractImageInfo(image){
 	try {
-		console.log(image.asset)
 		let asset = await fetchAsset(image.asset);
 		buildImage(asset.url);
 	} catch (error) {
@@ -44,9 +43,13 @@ function buildImage(url) {
 	img.onload = function(){
 		img.setAttribute('width', img.width);
 		img.setAttribute('height', img.height);
+		div.style.height = img.height;
+		div.style.width = img.width;
 
 
 	}
+
+	interSection(div);
 	img.src = url;
 	galleryContainerElem.appendChild(div);
 	div.appendChild(img);
