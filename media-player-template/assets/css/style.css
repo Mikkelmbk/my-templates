@@ -1,0 +1,25 @@
+.video-container{
+	min-height:100vh;
+	width: 100vw;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	position:relative;
+}
+
+video{
+	height:300px;
+	width:800px;
+}
+
+.video-container button{
+	border:none;
+	background-color:unset;
+	font-size:40px;
+	position:absolute;
+	outline:none;
+	cursor:pointer;
+	color:rgb(255, 74, 240);
+	/* border:3px solid rgba(255, 255, 255, 0.877);
+	border-radius:50%; */
+}
