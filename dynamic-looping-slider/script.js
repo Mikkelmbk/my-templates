@@ -1,15 +1,17 @@
 let images = [ // This can be replaced by data from an API or elsewhere.
-    '../img/bendyghuun.png',
-    '../img/gnomesmile.PNG',
-    '../img/weabu.PNG',
-    '../img/Kung Fu Panda.gif',
-    '../img/Scary Teeth Man.PNG',
-    '../img/Thank you Gif.gif'
+    'img/CropCena.png',
+    'img/dwayne nicklas.PNG',
+    'img/FeelsAmazingMan.jpg',
+    'img/FeelsBadMan.jpg',
+    'img/feelstastymannn.jpg',
+    'img/profilBillede.jpg'
 ];
 let sliderWrapperElem = document.querySelector('.slider-wrapper'); // wrapper with overflow:hidden.
 let sliderContainerElem = document.querySelector('.slider-container'); // sliderContainer receiving it's width from sliderWrapperElem's width divided by number of displayed slides, timed by length of images array.
 let displayedSlides = 3; // change this number to adjust how many slides are being displayed at one time, The slideshow will automatically adjust the slide length.
 let slideshowInterval;
+
+// sliderContainerElem.style.transform = `translateX(${-(sliderWrapperElem.offsetWidth / displayedSlides)}px)`
 
 images.forEach((image) => {
     let imageContainerElem = document.createElement('div');
@@ -27,21 +29,21 @@ initSlideshow();
 
 
 sliderContainerElem.addEventListener('transitionend', () => {
-    sliderContainerElem.style.transition = "unset"; // unsets the transition before reverting the Marginleft to 0 on the sliderContainerElem.
 
-    if (sliderContainerElem.childNodes[0].nodeName == "#text") { // checks if the first child element is of type "#text" if so removes it entirely.
+        
+        sliderContainerElem.style.transition = "unset"; // unsets the transition before reverting the Marginleft to 0 on the sliderContainerElem.
+        
+        if (sliderContainerElem.childNodes[0].nodeName == "#text") { // checks if the first child element is of type "#text" if so removes it entirely.
         sliderContainerElem.removeChild(sliderContainerElem.childNodes[0]);
         let firstChild = sliderContainerElem.removeChild(sliderContainerElem.childNodes[0]); // removes the first childNode and stores it in firstChild.
         sliderContainerElem.insertAdjacentElement('beforeend', firstChild); // insert the childNode stored in firstChild at the very end of the nodelist (sliderContainerElem).
         sliderContainerElem.style.marginLeft = `0px`;
         return;
     }
-
+    
     let firstChild = sliderContainerElem.removeChild(sliderContainerElem.childNodes[0]);
-        sliderContainerElem.insertAdjacentElement('beforeend', firstChild);
-        sliderContainerElem.style.marginLeft = `0px`;
-
-
+    sliderContainerElem.insertAdjacentElement('beforeend', firstChild);
+    sliderContainerElem.style.marginLeft = `0px`;
 });
 
 function initSlideshow() {
