@@ -1,3 +1,4 @@
+
 .video-container{
 	min-height:100vh;
 	width: 100vw;
@@ -5,14 +6,15 @@
 	justify-content: center;
 	align-items: center;
 	position:relative;
+	flex-direction:column;
 }
 
 video{
 	height:300px;
-	width:800px;
+	width:auto;
 }
 
-.video-container button{
+.play-pause-btn{
 	border:none;
 	background-color:unset;
 	font-size:40px;
@@ -20,6 +22,38 @@ video{
 	outline:none;
 	cursor:pointer;
 	color:rgb(255, 74, 240);
-	/* border:3px solid rgba(255, 255, 255, 0.877);
-	border-radius:50%; */
+	transition: .4s all ease;
+	opacity: 0;
+	pointer-events: none; /* Pointer events none for at gøre så man kan klikke "gennem" play knappen på videoplayeren, da start stop eventlisteneren er på hele video tagget. */
+}
+
+.video-active{
+	opacity: 1;
+}
+
+
+.video-time-container{
+	display:grid;
+	grid-template-columns: 2fr 7fr 80px;
+	align-items:center;
+	text-align:center;
+	background-color:rgba(255, 102, 247, 0.849);
+	padding: 0 10px;
+	box-sizing: border-box;
+	border-radius: 0px 0px 5px 5px;
+	min-height:30px;
+	grid-gap: 20px;
+}
+
+
+.display-time{
+	color:white;
+}
+
+.duration-input{
+	width:100%;
+}
+
+.volume-input{
+	
 }
