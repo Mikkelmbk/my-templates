@@ -14,15 +14,7 @@ videoTimeContainerElem.style.width = `${video.offsetWidth}px`;
 playPauseBtn.classList.add('video-active');
 
 video.addEventListener('click',()=>{
-	if(video.paused){
-		video.play();
-		playPauseBtn.innerHTML = "&#10074;&#10074;";
-		videoTimeContainerElem.style.width = `${video.offsetWidth}px`;
-	}
-	else{
-		video.pause();
-		playPauseBtn.innerHTML = "&#9658;";
-	}
+	handleVideoState();
 })
 
 video.addEventListener('mouseenter',()=>{
@@ -73,6 +65,27 @@ durationInputElem.addEventListener('mouseup',()=>{
 durationInputElem.addEventListener('input',(e)=>{
 	video.currentTime = (video.duration * e.target.value) / 100;
 })
+
+
+window.addEventListener('keydown', logkey);
+
+function logkey(e){
+	if(e.keyCode == 32){
+		handleVideoState();
+	}
+}
+
+function handleVideoState(){
+		if(video.paused){
+			video.play();
+			playPauseBtn.innerHTML = "&#10074;&#10074;";
+			videoTimeContainerElem.style.width = `${video.offsetWidth}px`;
+		}
+		else{
+			video.pause();
+			playPauseBtn.innerHTML = "&#9658;";
+		}
+}
 
 
 
