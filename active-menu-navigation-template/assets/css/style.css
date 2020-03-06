@@ -1,0 +1,35 @@
+html{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:18px;
+}
+
+
+body{
+	margin: 0;
+}
+
+.container{
+	min-height:100vh;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.container__ul{
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	display:flex;
+	justify-content: space-evenly;
+	width:100%;
+}
+
+.container__a{
+	color:unset;
+	text-decoration: none;
+}
+
+.active-menu{
+	color:hotpink;
+}
