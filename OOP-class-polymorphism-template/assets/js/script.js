@@ -15,6 +15,7 @@ class Dog extends Animal {
     }
 
     makeSound(){ // overwrite function within Dog class inherited from Animal, make it say Woof woof!. (This is polymorphism)
+        super.makeSound(); // super.makeSound() calls the parent (Animal) class' makeSound() method.
         console.log("Woof woof!");
     }
 }
