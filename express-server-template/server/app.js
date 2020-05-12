@@ -20,3 +20,5 @@ app.get('/test1', (req,res)=> {
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+// https://www.youtube.com/watch?v=L72fhGm1tfE Traversy Media 1 hour 15 minute crash course. TAGS: Express JS, CRUD, View engines
