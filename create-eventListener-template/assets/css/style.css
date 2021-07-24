@@ -1,0 +1,29 @@
+.addClass,.addId{
+    background-color:green;
+    color:white;
+    padding:8px 10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+.removeClass,.removeId{
+    background-color:red;
+    color:white;
+    padding:8px 10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+.addDataAttribute{
+    background-color:Orange;
+    color:white;
+    padding:8px 10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+#hello{
+    color:green;
+
+}
