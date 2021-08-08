@@ -1,75 +1,106 @@
 if ('MutationObserver' in window) {
-    // document.addMutationListener = function(element, mutationType, config, action) {
-    //     if (element == "" || !element || !isNaN(element)) return;
-    //     if (mutationType == "" || !mutationType || !isNaN(mutationType)) return;
-    //     if (config == "" || !config || typeof (config) !== 'object' || Object.keys(config).length < 1) return;
-    //     if(!action || typeof(action) !== 'function' || action == "" || action == "undefined") return;
-    
-    //     let mutationElement = document.querySelector(element);
-    
-    //     let observer = new MutationObserver(function (mutationsList, observer) {
-    //         mutationsList.forEach((mutation) => {
-    //             if (mutation.type === 'childList' && mutationType === 'childList') {
-    //                 action(mutation);
-    //             }
-    //             if(mutation.type === 'attributes' && mutationType === 'attributes'){
-    //                 action(mutation);
-    //             }
-    //         })
-    //     });
-    //     observer.observe(mutationElement, config);
-    // };
-    // document.addMutationListener('.container', "attributes", { childList: true, subtree: true, attributes: true, attributeOldValue: true}, yourFunction);
-
-
-
-
-
-
-    addMutationListener('.container', "attributes", { childList: true, subtree: true, attributes: true, attributeOldValue: true}, yourFunction);
-    // Parameter 1: element you want to listen to selector
-    // Parameter 2: mutation you want to listen for - possible settings (childList, attributes)
-    // Parameter 3: mutation Config - possible settings (childList, subtree, attributes, attributeOldValue)
-    // Parameter 4: a reference to your function, no invocation, just referencing - you will receive the mutation/event as a parameter upon invocation by the mutationObserver.
+  
+    addMutationListener('.outer-wrapper > .inner-wrapper > .container', "attributes_subtree", yourFunction);
+    // Parameter 1: element (class or Id) you want to listen to selector.
+    // Parameter 2: mutation you want to listen for - possible settings (childList OR attributes OR childList_subtree OR attributes_subtree).
+    // Parameter 3: a reference to your function, no invocation, just referencing - you will receive the mutation/event as a parameter upon invocation by the mutationObserver.
     // All parameters are required.
+
+    // Parameter 1 in depths: You must provide an element by it's unique class or Id.
+    // A class is produced by prefixing the name with a dot (.)
+    // An id is produced by prefixing the name with a hashtag (#)
+
+    // Parameter 2 in depths: You must provide a mutation you want to listen for.
+    // The childList mutation will listen for changes to the direct children of the element you provided in parameter 1.
+    // The attributes mutation will listen for attribute changes on the element you provided in parameter 1.
+    // The childList_subtree mutation will listen for changes to the direct children of the element you provided in parameter 1, but it will also listen for changes on children of children.
+    // The attributes mutation will listen for attribute changes on the element you provided in parameter 1, but it will also listen for changes on children of children.
+
+    // Parameter 3 in depths: You must provide a reference (not an invocation) to a function you define.
+    // Your function must contain a parameter ready to receive the mutation that you are listening for.
+    
+    // Use cases:
+    // The addMutationListener can be used to update cart recom titles when a page refresh is not triggered upon changing or updating the cart content.
+    // The addMutationListener can be used to trigger an upsell recom.
+
 }
 
 
 
 
-function addMutationListener(element, mutationType, config, action) {
+function addMutationListener(element, mutationType, action) {
     if (element == "" || !element || !isNaN(element)) return;
     if (mutationType == "" || !mutationType || !isNaN(mutationType)) return;
-    if (config == "" || !config || typeof (config) !== 'object' || Object.keys(config).length < 1) return;
     if(!action || typeof(action) !== 'function' || action == "" || action == "undefined") return;
 
-    let mutationElement = document.querySelector(element);
+    let mutationConfig;
+    let mutationElement = document.querySelectorAll(element);
+    if(mutationElement.length > 1){
+        console.error("There are " + mutationElement.length + " elements with " + JSON.stringify(element) + " as their selector, we are listening to the first one we found");
+    }
+    mutationElement = mutationElement[0];
+
+    if(mutationType.toLowerCase() === 'attributes'){
+        mutationConfig = { attributes:true, attributeOldValue:true };
+    }
+    else if(mutationType.toLowerCase() === 'childlist'){
+        mutationConfig = { childList:true };
+    }
+    else if(mutationType.toLowerCase() === 'attributes_subtree'){
+        mutationConfig = { attributes:true, attributeOldValue:true, subtree:true };
+    }
+    else if(mutationType.toLowerCase() === 'childlist_subtree'){
+        mutationConfig = { childList:true, subtree:true };
+    }
+    else{
+        return console.error(mutationType + " is not a valid mutation to listen for, refer to Parameter 2 documentation for options.");
+    }
+    
 
     let observer = new MutationObserver(function (mutationsList, observer) {
-        mutationsList.forEach((mutation) => {
-            if (mutation.type === 'childList' && mutationType === 'childList') {
+        mutationsList.forEach(function(mutation){
+            if (mutation.type === 'childList' && mutationType.toLowerCase() === 'childlist') {
                 action(mutation);
             }
-            if(mutation.type === 'attributes' && mutationType === 'attributes'){
+            if(mutation.type === 'attributes' && mutationType.toLowerCase() === 'attributes'){
+                action(mutation);
+            }
+            if(mutation.type === 'childList' && mutationType.toLowerCase() === 'childlist_subtree'){
+                action(mutation);
+            }
+            if(mutation.type === 'attributes' && mutationType.toLowerCase() === 'attributes_subtree'){
                 action(mutation);
             }
         })
     });
-    observer.observe(mutationElement, config);
+    observer.observe(mutationElement, mutationConfig);
+
+    
 }
 
 function yourFunction(mutation) {
-    console.log(mutation);
-
+    console.log(mutation.type + " returned the following:", mutation);
 }
 
 
 
 
-setTimeout(() => {
+setTimeout(function(){
 
-    document.querySelector(".container h1").innerHTML = "Title was changed";
-    document.querySelector(".container h1").classList.add("my-new-class");
+    // text node changed.
+    // let h1Elem = document.querySelector(".container h1");
+    // h1Elem.innerHTML = "Title was changed";
+
+    // addedNode changed.
+    // let containerElem = document.querySelector(".container");
+    // let span = document.createElement("span");
+    // span.classList.add("added-span");
+    // containerElem.appendChild(span);
+
+    // attribute changed.
+    // document.querySelector(".container h1").classList.add("my-new-class");
+
+
 
 }, 2000)
 
