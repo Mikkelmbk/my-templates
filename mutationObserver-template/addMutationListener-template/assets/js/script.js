@@ -1,6 +1,6 @@
 if ('MutationObserver' in window) {
   
-    addMutationListener('#unique-wrapper > .inner-wrapper > .container', "attributes_subtree", yourFunction);
+    addMutationListener('.container', "childlist", mutationHandler);
     //comments
     {
     // Parameter 1: element (class or Id) you want to listen to selector.
@@ -52,6 +52,19 @@ function addMutationListener(element, mutationType, action) {
         return console.error("addMutationListener: " + mutationType + " is not a valid mutation to listen for, refer to Parameter 2 documentation for options.");
     }
 
+
+    // switch(mutationType.toLowerCase()){
+    //     case 'attributes':
+    //         mutationConfig = { attributes:true, attributeOldValue:true };
+    //     case 'childlist':
+    //         mutationConfig = { childList:true };
+    //     case 'attributes_subtree':
+    //         mutationConfig = { attributes:true, attributeOldValue:true, subtree:true };
+    //     case 'childlist_subtree':
+    //         mutationConfig = { childList:true, subtree:true };
+    //     case 
+    // }
+
     let mutationElement = document.querySelectorAll(element);
     if(mutationElement.length > 1){
         console.warn("addMutationListener: There are " + mutationElement.length + " elements with " + JSON.stringify(element) + " as their selector, listening to the first one that was found");
@@ -68,8 +81,12 @@ function addMutationListener(element, mutationType, action) {
     observer.observe(mutationElement, mutationConfig);    
 }
 
-function yourFunction(mutation) {
+function mutationHandler(mutation) {
     console.log(mutation.type + " returned the following:", mutation);
+    mutation.addedNodes.forEach((item)=>{
+
+        console.log();
+    })
 
 }
 
@@ -83,13 +100,13 @@ setTimeout(function(){
     // h1Elem.innerHTML = "Title was changed";
 
     // addedNode changed. (span is a direct child that is added to the .container so childlist is needed here).
-    // let containerElem = document.querySelector(".container");
-    // let span = document.createElement("span");
-    // span.classList.add("added-span");
-    // containerElem.appendChild(span);
+    let containerElem = document.querySelector(".container");
+    let span = document.createElement("span");
+    span.classList.add("added-span");
+    containerElem.appendChild(span);
 
     // attribute changed. (attribute_subtree is needed here because the change happened to a child of the element we were listening to: .container)
-    document.querySelector(".container h1").classList.add("my-new-class");
+    // document.querySelector(".container h1").classList.add("my-new-class");
 
 
 
