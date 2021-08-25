@@ -1,7 +1,7 @@
 if ('MutationObserver' in window) {
 
     addMutationListener(".container", "childlist_subtree", {
-        awNodeName: "h1",
+        awNodeName: "p",
         awFullClassName: "added-p",
         awContainsClassName: "another-title"
     });
@@ -78,18 +78,20 @@ function addMutationListener(element, mutationType, awConfig) {
 
 function mutationHandler(mutation, awConfig) {
     if (mutation.type === 'attributes') {
-        console.log("nodeName: " +mutation.target.nodeName + " | " + "className: " + mutation.target.className);
+        console.log("nodeName: " + mutation.target.nodeName + " | " + "className: " + mutation.target.className);
     }
     else if (mutation.type === 'childList') {
         console.log("nodeName: " + mutation.addedNodes[0].nodeName + " | " + "className: " +mutation.addedNodes[0].className);
     }
 
-    if (mutation.type === 'childList' && mutation.addedNodes[0].className === awConfig.awClassName && mutation.addedNodes[0].nodeName === awConfig.awNodeName.toUpperCase()) {
+    if (mutation.type === 'childList' && mutation.addedNodes[0].className === awConfig.awFullClassName || mutation.addedNodes[0].className === undefined && mutation.addedNodes[0].nodeName.toLowerCase() === awConfig.awNodeName) {
         // If parameter 2 is childlist or childlist_subtree, the stuff you want to do goes in this if statement.
+        console.log("childList hit");
     }
 
-    if (mutation.type === 'attributes' && mutation.target.classList.contains(awConfig.awContainsClassName.split(" ")[0]) && mutation.target.nodeName === awConfig.awNodeName.toUpperCase()) {
+    if (mutation.type === 'attributes' && mutation.target.classList.contains(awConfig.awContainsClassName.split(" ")[0]) && mutation.target.nodeName.toLowerCase() === awConfig.awNodeName) {
         // If parameter 2 is attributes or attributes_subtree, the stuff you want to do goes in this if statement.
+        console.log("attributes hit");
     }
 
 }
@@ -127,8 +129,8 @@ setTimeout(function () {
     // containerElem.appendChild(figure);
 
     // attribute changed. (attribute_subtree is needed here because the change happened to a child of the element we were listening to: .container)
-    document.querySelector(".container h1").classList.add("my-new-class");
-    document.querySelector(".container .h2").classList.add("my-new-class");
+    // document.querySelector(".container h1").classList.add("my-new-class");
+    // document.querySelector(".container .h2").classList.add("my-new-class");
     // document.querySelector(".container h1").classList.add("my-new-class2");
 
 
