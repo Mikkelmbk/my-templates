@@ -84,14 +84,24 @@ function mutationHandler(mutation, awConfig) {
         console.log("nodeName: " + mutation.addedNodes[0].nodeName + " | " + "className: " +mutation.addedNodes[0].className);
     }
 
-    if (mutation.type === 'childList' && mutation.addedNodes[0].className === awConfig.awFullClassName || mutation.addedNodes[0].className === undefined && mutation.addedNodes[0].nodeName.toLowerCase() === awConfig.awNodeName) {
-        // If parameter 2 is childlist or childlist_subtree, the stuff you want to do goes in this if statement.
-        console.log("childList hit");
+    if(mutation.type === 'childList' && mutation.addedNodes[0]){
+        if (mutation.type === 'childList' && mutation.addedNodes[0].className === awConfig.awFullClassName || mutation.addedNodes[0].className === undefined && mutation.addedNodes[0].nodeName.toLowerCase() === awConfig.awNodeName) {
+            // Block 1.
+            console.log("Your code should go in Block 1.");
+        }
     }
 
+    if(mutation.type === 'childList' && mutation.removedNodes[0]){
+        if (mutation.type === 'childList' && mutation.removedNodes[0].className === awConfig.awFullClassName || mutation.removedNodes[0].className === undefined && mutation.removedNodes[0].nodeName.toLowerCase() === awConfig.awNodeName) {
+            // Block 2.
+            console.log("Your code should go in Block 2.");
+        }
+    }
+
+    
     if (mutation.type === 'attributes' && mutation.target.classList.contains(awConfig.awContainsClassName.split(" ")[0]) && mutation.target.nodeName.toLowerCase() === awConfig.awNodeName) {
-        // If parameter 2 is attributes or attributes_subtree, the stuff you want to do goes in this if statement.
-        console.log("attributes hit");
+        // Block 3.
+        console.log("Your code should go in Block 3.");
     }
 
 }
