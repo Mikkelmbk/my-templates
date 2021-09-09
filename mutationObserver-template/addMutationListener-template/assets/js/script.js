@@ -37,9 +37,6 @@ if ('MutationObserver' in window) {
     }
 }
 
-
-
-
 function addMutationListener(element, mutationType, awConfig) {
     if (element == "" || !element || !isNaN(element)) return console.error(element + " is not a valid selector");
     if (mutationType == "" || !mutationType || !isNaN(mutationType)) return console.error(mutationType + " is not a valid mutationType");
@@ -107,42 +104,3 @@ function mutationHandler(mutation, awConfig) {
 }
 
 
-
-
-setTimeout(function () {
-
-    // text node changed (text node is a child of the h1, so subtree is needed here when listening on the parent of the h1).
-    // let h1Elem = document.querySelector(".container h1");
-    // h1Elem.innerHTML = "Title was changed";
-    // h1Elem.innerHTML = "Title was changed again";
-
-    // addedNode changed. (span is a direct child that is added to the .container so childlist is needed here).
-    let containerElem = document.querySelector(".container");
-    // let span = document.createElement("span");
-    // span.classList.add("added-span");
-    // containerElem.appendChild(span);
-
-    let p = document.createElement("p");
-    p.classList.add("added-p");
-    containerElem.appendChild(p);
-
-    // let article = document.createElement("article");
-    // article.classList.add("added-article");
-    // containerElem.appendChild(article);
-
-    // let header = document.createElement("header");
-    // header.classList.add("added-header");
-    // containerElem.appendChild(header);
-
-    // let figure = document.createElement("figure");
-    // figure.classList.add("added-figure");
-    // containerElem.appendChild(figure);
-
-    // attribute changed. (attribute_subtree is needed here because the change happened to a child of the element we were listening to: .container)
-    // document.querySelector(".container h1").classList.add("my-new-class");
-    // document.querySelector(".container .h2").classList.add("my-new-class");
-    // document.querySelector(".container h1").classList.add("my-new-class2");
-
-
-
-}, 2000)
