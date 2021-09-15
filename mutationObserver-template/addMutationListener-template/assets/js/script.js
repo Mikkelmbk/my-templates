@@ -1,10 +1,14 @@
 if ('MutationObserver' in window) {
 
-    addMutationListener(".container", "childlist_subtree", {
+    var awParameter1 = ".container";
+    var awParameter2 = "childlist_subtree";
+    var awParameter3 = {
         awNodeName: "p",
         awFullClassName: "added-p",
         awContainsClassName: "another-title"
-    });
+    }
+
+    addMutationListener(awParameter1, awParameter2, awParameter3);
     //comments
     {
         // Parameter 1: element (class or Id) you want to listen to selector.
@@ -102,5 +106,3 @@ function mutationHandler(mutation, awConfig) {
     }
 
 }
-
-
